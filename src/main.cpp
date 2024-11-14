@@ -1,6 +1,3 @@
-Das könnte für die main.cpp klappen, aber ich konnte es jetzt nicht mehr testen:
-
-
 #include "Sequence.h"
 #include "DNA.h"
 #include "Assembler.h"
@@ -17,13 +14,11 @@ int main(int argc, char* argv[]) {
         std::cerr << "Usage: " << argv[0] << " <fasta_file> <output.dot_file>" << std::endl;
         return 1;
     }
-
     std::ifstream fastaFile(argv[1]);
     if (!fastaFile) {
         std::cerr << "Input-Datei nicht erkannt: " << argv[1] << std::endl;
         return 1;
     }
-
     std::vector<Sequence<Alphabet::DNA>> dnaSequences;
     std::string line;
     std::string comment;
@@ -52,7 +47,6 @@ int main(int argc, char* argv[]) {
         seq.setComment(comment);
         dnaSequences.push_back(seq);
     }
-
     Assembler assembler(dnaSequences); // erstellt Knoten aus Fragmenten
     assembler.buildEdges(); // Kanten werden hinzugefügt
 
@@ -62,7 +56,6 @@ int main(int argc, char* argv[]) {
         std::cerr << "Fehler beim generieren der Output-Datei: " << argv[2] << std::endl;
         return 1;
     }
-
     output << assembler.getGraph();
     output.close();
 
