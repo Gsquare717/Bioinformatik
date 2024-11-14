@@ -167,12 +167,19 @@ template <typename NodeLabel> class Graph
 };
 
 /**
- * TODO 
+ * TODO-done
  */
 template <typename NodeLabel>
-std::ostream& operator << (std::ostream& strm, const Graph<NodeLabel>& graph) {
+std::ostream& operator<<(std::ostream& strm, const Graph<NodeLabel>& graph) {
+    strm << "digraph Graph {\n";
+    strm << "  nodesep=0.7;\n"; 					// siehe  https://de.wikipedia.org/wiki/Graphviz#Beispiel
+    for (const auto& node : graph.nodes_) { 		// Durchläuft jeden Knoten
+        for (const auto& edge : node.out_edges) {  	// Durchläuft alle ausgehenden Kanten
+            strm << " " << node.label << " -> " << (edge.first->label) << " [label=\"" << edge.second << "\"];\n"; // siehe  https://de.wikipedia.org/wiki/Graphviz#Beispiel
+        }
+    }
+    strm << "}";
+    return strm;
 }
 
-
 #endif // BIOINFOI_GRAPH_H
-
