@@ -1,7 +1,7 @@
 #include "Sequence.h"
 #include "DNA.h" // Klassen DNA, RNA und Peptide müssen implementiert sein
-#include "RNA.h"
-#include "Peptide.h"
+#include "Assembler.h"
+#include "Graph.h"
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
@@ -9,7 +9,76 @@
 #include <string>
 #include <limits>
 
-// Funktion, um den Anteil eines Charakters in der Sequenz zu berechnen
+void processFastaFile(const std::string& fastaFileName)
+{
+    const std::string& type = "dna";
+    std::ifstream fastaFile(fastaFileName);
+    if (!fastaFile)
+    {
+        std::cerr << "Error opening file: " << fastaFileName << std::endl;
+        return;
+    }
+
+    std::vector<Sequence<Alphabet::DNA>> dnaSequences;
+    
+    std::string line;
+    std::string comment;
+    Sequence<Alphabet::DNA> seq;
+    std::string currentSequence;  // To store the sequence lines
+
+    while (std::getline(fastaFile, line)) {
+        if (line.empty()) continue;     // Überspringe leere line
+
+        if (line[0] == '>') {           // Neue Sequenz 
+        comment = line.substr(1);
+            if (!currentSequence.empty()) {
+                seq = Sequence<Alphabet::DNA>::fromString(currentSequence);
+                /**
+                 * TODO 
+                 * Sequenz wird Assembler-Assembler() hinzugefügt
+                 * Overlap-Edges wird über Assembler-buildEdges() hinzugefügt
+                 * Ausgabe über Graph-operator<<
+                 * */
+            }
+            currentSequence.clear();    // Reset for the next sequence
+        } else {
+            currentSequence += line;    // Append
+        }
+    }
+}
+
+// Hauptprogramm
+int main(int argc, char* argv[])
+{
+    if (argc < 3)
+    {
+        std::cerr << "Usage: " << argv[0] << " <fasta_file> <output.dot>" << std::endl;
+        return 1;
+    }
+
+    // Datei einlesen
+    std::ifstream fastaFile(argv[1]);
+    if (!fastaFile)
+    {
+        std::cerr << "Error: Could not open file " << argv[1] << std::endl;
+        return 1;
+    }
+
+    // Es wird nur DNA akzeptiert, da "./convert fragments.fasta fragments.dot" Alphabet nicht spezifiziert wird
+    std::ofstream out(argv[2]);
+    if (!out.is_open()) {
+        std::cerr << "Fehler beim Öffnen der Datei zum Schreiben: " << argv[2] << std::endl;
+        return 1;
+    }
+
+    processFastaFile(argv[1]);
+
+    return 0;
+}
+
+
+/* Alte Version
+
 template <typename Alpha>
 double calculateBasePercentage(const Sequence<Alpha>& seq, typename Alpha::Characters base)
 {
@@ -119,4 +188,4 @@ int main(int argc, char* argv[])
     }
 
     return 0;
-}
+}*/
