@@ -20,7 +20,7 @@ class Assembler
 	 * Creates an overlap graph.
 	 * TODO-done
 	 */
-	Assembler::Assembler(const std::vector<Assembler::Seq>& sequences) {
+	Assembler(const std::vector<Assembler::Seq>& sequences) {
 		for (const auto& seq : sequences) {
 			graph_.addNode(seq);
 		}
@@ -41,7 +41,7 @@ class Assembler
 	 * the Overlay-Graph.
 	 * TODO-done
 	 */
-	void Assembler::buildEdges() {
+	void buildEdges() {
     for (auto n1 = graph_.beginNodes(); n1 != graph_.endNodes(); ++n1) {
         for (auto n2 = graph_.beginNodes(); n2 != graph_.endNodes(); ++n2) {
             // Berechne die Überlappung zwischen den Sequenzen
