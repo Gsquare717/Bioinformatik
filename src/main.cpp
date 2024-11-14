@@ -9,7 +9,7 @@
 #include <string>
 #include <limits>
 
-void processFastaFile(const std::string& fastaFileName)
+void processFastaFile(const std::string& fastaFileName, const std::string& outputName)
 {
     const std::string& type = "dna";
     std::ifstream fastaFile(fastaFileName);
@@ -33,10 +33,13 @@ void processFastaFile(const std::string& fastaFileName)
         comment = line.substr(1);
             if (!currentSequence.empty()) {
                 seq = Sequence<Alphabet::DNA>::fromString(currentSequence);
+                seq.setComment(comment);
+                dnaSequences.push_back(seq);
                 /**
-                 * TODO 
+                 * TODO-done
                  * Sequenz wird Assembler-Assembler() hinzugefügt
-                 * Overlap-Edges wird über Assembler-buildEdges() hinzugefügt
+                 * Overlap-Ed
+                 * ges wird über Assembler-buildEdges() hinzugefügt
                  * Ausgabe über Graph-operator<<
                  * */
             }
@@ -45,6 +48,23 @@ void processFastaFile(const std::string& fastaFileName)
             currentSequence += line;    // Append
         }
     }
+    if (!currentSequence.empty()) {
+        seq = Sequence<Alphabet::DNA>::fromString(currentSequence);
+        seq.setComment(comment);
+        dnaSequences.push_back(seq);
+    }
+
+    Assembler assembler(dnaSequences);
+    assembler.buildEdges();
+
+    std::ofstream output(outputName);
+    if (!output) {
+        std::cerr << "Error" << std::endl;
+        return;
+    }
+
+    output << assembler.getGraph();
+    output.close();
 }
 
 // Hauptprogramm
@@ -71,7 +91,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    processFastaFile(argv[1]);
+    processFastaFile(argv[1], "ConvertedFastaFile");
 
     return 0;
 }

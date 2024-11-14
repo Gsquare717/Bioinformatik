@@ -28,7 +28,7 @@ class Assembler
 	 */
 	OGraph& getGraph();
 
-  private:
+  public:
 	/**
 	 * Initializes the appropriate Edges between the given nodes to create
 	 * the Overlay-Graph.

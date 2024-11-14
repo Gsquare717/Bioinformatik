@@ -19,6 +19,7 @@ void Assembler::buildEdges() {
                 continue; // überspringen
             }
 
+            
             size_t overlap_length = it1->label.overlap(it2->label); // Overlap berechnnen
 
             if (overlap_length > 0) {
