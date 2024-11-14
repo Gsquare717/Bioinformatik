@@ -172,7 +172,7 @@ template <typename NodeLabel> class Graph
 template <typename NodeLabel>
 std::ostream& operator<<(std::ostream& strm, const Graph<NodeLabel>& graph) {
     strm << "digraph Graph {\n";
-    strm << "  nodesep=0.7;\n"; // siehe  https://de.wikipedia.org/wiki/Graphviz#Beispiel
+    strm << "  nodesep=0.7;\n"; 					// siehe  https://de.wikipedia.org/wiki/Graphviz#Beispiel
     for (const auto& node : graph.nodes_) { 		// Durchläuft jeden Knoten
         for (const auto& edge : node.out_edges) {  	// Durchläuft alle ausgehenden Kanten
             strm << " " << node.label << " -> " << (edge.first->label) << " [label=\"" << edge.second << "\"];\n"; // siehe  https://de.wikipedia.org/wiki/Graphviz#Beispiel
