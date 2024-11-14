@@ -167,7 +167,7 @@ template <typename NodeLabel> class Graph
 };
 
 /**
- * TODO 
+ * TODO-done
  */
 template <typename NodeLabel>
 std::ostream& operator<<(std::ostream& strm, const Graph<NodeLabel>& graph) {

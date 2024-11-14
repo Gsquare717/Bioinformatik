@@ -30,7 +30,7 @@ add_library(sequence SHARED
 
 # Erstelle die ausführbare Datei.
 # add_executable(main src/main.cpp)		# Aus dem alten Projekt
-add_executable(convert src/main.cpp)	# Für Projekt 02 Graph
+add_executable(convert src/Assembler.cpp)	# Für Projekt 02 Graph
 target_link_libraries(convert sequence ${CIP_STD_LIBS})
 
 ##############
