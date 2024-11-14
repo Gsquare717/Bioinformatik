@@ -176,3 +176,4 @@ std::ostream& operator << (std::ostream& strm, const Graph<NodeLabel>& graph) {
 
 #endif // BIOINFOI_GRAPH_H
 
+// Test ob git in VSCode funktioniert
