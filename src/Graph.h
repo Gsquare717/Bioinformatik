@@ -92,13 +92,13 @@ template <typename NodeLabel> class Graph
 	 */
 	typename std::vector<std::pair<Node*, size_t>>::const_iterator findEdge(const Node* n1, const Node* n2) const {
 	
-    for (auto it = n1->out_edges.begin(); it != n1->out_edges.end(); ++it) { // Durchläuft die out_edges von n1
-        if (it->first == n2) {  	// it führt zu n2?
-            return it;           	// -> it wird zurück gegeben
-        }
-    }
-    return n1->out_edges.end();
-}
+		for (auto it = n1->out_edges.begin(); it != n1->out_edges.end(); ++it) { // Durchläuft die out_edges von n1
+			if (it->first == n2) {  	// it führt zu n2?
+				return it;           	// -> it wird zurück gegeben
+			}
+		}
+		return n1->out_edges.end();
+	}
 
 	/**
 	 * Creates an edge and returns a copy of it.

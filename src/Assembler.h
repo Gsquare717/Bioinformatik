@@ -39,7 +39,7 @@ class Assembler
 	 * Zeigen Start- und Zielknoten der übergebenen Kante noch auf entsprechende Knoten im Graphen?
 	 * TODO in Assembler.cpp
 	 */
-	bool isValid(const OGraph::Edge& e) const;
+	bool isValid(const OGraph::Edge& e);
 
 	/**
 	 * Start- und Zielknoten der Kante mit maximalem Kantengewicht zu einem Knoten zusammenfassen (contractEdge).
@@ -54,6 +54,7 @@ class Assembler
 	 */
 	Seq assemble();
 
+private:
 	OGraph graph_;
 
 	std::vector<OGraph::Edge> edges_;
@@ -61,4 +62,3 @@ class Assembler
 };
 
 #endif // BIOINFO1_ASSEMBLER_H
-
