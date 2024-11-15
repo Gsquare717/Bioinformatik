@@ -37,20 +37,20 @@ class Assembler
 
 	/**
 	 * Zeigen Start- und Zielknoten der übergebenen Kante noch auf entsprechende Knoten im Graphen?
-	 * TODO
+	 * TODO in Assembler.cpp
 	 */
 	bool isValid(const OGraph::Edge& e) const;
 
 	/**
 	 * Start- und Zielknoten der Kante mit maximalem Kantengewicht zu einem Knoten zusammenfassen (contractEdge).
 	 * Neuer Knoten soll die assemblierte Sequenz zugewiesen werden.
-	 * TODO
+	 * TODO in Assembler.cpp
 	 */
 	void joinLargestEdge();
 
 	/**
 	 * Wendet Greedy-Algorithmus an und liefert die entstandene Sequenz zurück.
-	 * TODO
+	 * TODO in Assembler.cpp
 	 */
 	Seq assemble();
 

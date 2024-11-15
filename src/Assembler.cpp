@@ -1,4 +1,6 @@
 #include "Assembler.h"
+#include "Sequence.h"
+
 
 Assembler::Assembler(const std::vector<Assembler::Seq>& sequences) {
     for (const auto& seq : sequences) { // Erstellt einen graph wobei die einzelnen sequencen nodes sind.
@@ -27,4 +29,33 @@ void Assembler::buildEdges() {
             }
         }
     }
+}
+
+// Für die Übung 4
+using Seq = Sequence<Alphabet::DNA>;
+using OGraph = Graph<Seq>;
+
+/**
+* Zeigen Start- und Zielknoten der übergebenen Kante noch auf entsprechende Knoten im Graphen?
+* TODO
+*/
+bool isValid(const OGraph::Edge& e){
+
+}
+	
+/**
+ * Start- und Zielknoten der Kante mit maximalem Kantengewicht zu einem Knoten zusammenfassen (contractEdge).
+ * Neuer Knoten soll die assemblierte Sequenz zugewiesen werden.
+ * TODO
+ */
+void joinLargestEdge(){
+    
+}
+
+/**
+ * Wendet Greedy-Algorithmus an und liefert die entstandene Sequenz zurück.
+ * TODO
+ */
+Seq assemble(){
+    
 }
