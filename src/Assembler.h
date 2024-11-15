@@ -28,13 +28,31 @@ class Assembler
 	 */
 	OGraph& getGraph();
 
-  public:
 	/**
 	 * Initializes the appropriate Edges between the given nodes to create
 	 * the Overlay-Graph.
 	 * TODO-done
 	 */
 	void buildEdges();
+
+	/**
+	 * Zeigen Start- und Zielknoten der übergebenen Kante noch auf entsprechende Knoten im Graphen?
+	 * TODO
+	 */
+	bool isValid(const OGraph::Edge& e) const;
+
+	/**
+	 * Start- und Zielknoten der Kante mit maximalem Kantengewicht zu einem Knoten zusammenfassen (contractEdge).
+	 * Neuer Knoten soll die assemblierte Sequenz zugewiesen werden.
+	 * TODO
+	 */
+	void joinLargestEdge();
+
+	/**
+	 * Wendet Greedy-Algorithmus an und liefert die entstandene Sequenz zurück.
+	 * TODO
+	 */
+	Seq assemble();
 
 	OGraph graph_;
 
