@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
     Assembler assembler(dnaSequences); // Erstellt den Overlap-Graphen
     assembler.buildEdges(); // Fügt Kanten hinzu
 
-    std::cout << "Start-Graph: \n" << assembler.getGraph();
+    std::cout << "Start-Graph: \n" << assembler.getGraph() << std::endl;  // Am Ende entfernen
     int i = 0;
     while (assembler.getGraph().numNodes() > 1) { // || i < 10 Am Ende entfernen
         if (save) {
