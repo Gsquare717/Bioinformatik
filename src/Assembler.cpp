@@ -5,8 +5,6 @@ Assembler::Assembler(const std::vector<Assembler::Seq>& sequences) {
     for (const auto& seq : sequences) { // Erstellt einen graph wobei die einzelnen sequencen nodes sind.
         graph_.addNode(seq);
     }
-
-    buildEdges(); // Kanten zwischen Nodes mit Overlap werden hinzugefügt.
 }
 
 Assembler::OGraph& Assembler::getGraph() {
@@ -20,7 +18,10 @@ void Assembler::buildEdges() {
                 continue; // überspringen
             }
 
-            
+            if (graph_.findEdge(&*it2, &*it1) != it2->out_edges.end()) {
+                continue; // Wenn die Kante bereits existiert, überspringen
+            }
+
             size_t overlap_length = it1->label.overlap(it2->label); // Overlap berechnnen
 
             if (overlap_length > 0) {
