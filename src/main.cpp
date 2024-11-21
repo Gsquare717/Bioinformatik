@@ -81,8 +81,9 @@ int main(int argc, char* argv[]) {
     Assembler assembler(dnaSequences); // Erstellt den Overlap-Graphen
     assembler.buildEdges(); // Fügt Kanten hinzu
 
+    std::cout << "Start-Graph: \n" << assembler.getGraph();
     int i = 0;
-    while (assembler.getGraph().numNodes() > 1) {
+    while (assembler.getGraph().numNodes() > 1) { // || i < 10 Am Ende entfernen
         if (save) {
             std::string savePath = saveDirectory + "/step_" + std::to_string(i++) + ".dot";
             std::ofstream saveFile(savePath);
@@ -93,7 +94,9 @@ int main(int argc, char* argv[]) {
             saveFile << assembler.getGraph();
             saveFile.close();
         }
+        // Für Debugging:  std::cout << "\n\nDatei Schritt: " << i << " Anzahl der Knoten: " << assembler.getGraph().numNodes() << std::endl; // Am Ende entfernen
         assembler.joinLargestEdge();
+        // Für Debugging:  if(i > 10) return 1; // Am Ende entfernen
     }
 
     // Finale assemblierte Sequenz ausgeben

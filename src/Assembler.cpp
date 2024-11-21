@@ -54,12 +54,13 @@ bool Assembler::isValid(const OGraph::Edge& e) {
  */
 void Assembler::joinLargestEdge() {
     if (graph_.numNodes() <= 1) {
+        std::cout << "Keine Knoten zum verknüpfen! Anzahl an verfügbaren Knoten: " << graph_.numNodes() << std::endl;
         return;
     }
     OGraph::Edge* largest_edge = nullptr;
     size_t max_weight = 0;
 
-    // Suche die Kante mit dem größten Gewicht
+    // Sucht die Kante mit dem größten Gewicht
     for (auto node_it = graph_.beginNodes(); node_it != graph_.endNodes(); ++node_it) {
         for (const auto& edge : node_it->out_edges) {
             if (edge.second > max_weight) {
@@ -70,14 +71,24 @@ void Assembler::joinLargestEdge() {
     }
 
     if (!largest_edge) {
+        std::cout << "Keine gültige Kante gefunden" << std::endl;
         return; // Keine Kante gefunden
     }
+
+    // Am Ende entfernen
+    // Für Debugging:  std::cout << "Verarbeite größte Kante: " << largest_edge->source->label.toString()
+    // Für Debugging:            << " -> " << largest_edge->target->label.toString()
+    // Für Debugging:            << " Gewicht: " << largest_edge->weight << std::endl;
+
+
     // Assemblierte Sequenz erstellen
     Seq new_sequence = Seq::fromString(largest_edge->source->label.toString() + largest_edge->target->label.toString().substr(max_weight));
 
     // Kantenkontraktion durchführen
     OGraph::Node* new_node = graph_.contractEdge(*largest_edge);
     new_node->label = new_sequence; // Neue Sequenz dem neuen Knoten zuweisen
+
+    // Für Debugging:  std::cout << "Knotenanzahl nach Kantenkontraktion: " << graph_.numNodes() << std::endl;  // Am Ende entfernen
 
     delete largest_edge; // Speicher freigeben
 }

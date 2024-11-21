@@ -144,10 +144,26 @@ template <typename NodeLabel> class Graph
 	 * TODO-done?
 	 */
 	Node* contractEdge(const Edge& rem) {
-        for (auto& edge : rem.target->out_edges) {		// Durchläuft die out_edges vom target von rem
-            rem.source->out_edges.push_back(edge);		// Fügt entsprechend out_edges vom target bei der source hinzu
+        for (auto& edge : rem.target->out_edges) {			// Durchläuft die out_edges vom target von rem
+			if (edge.first != rem.source) {					// Verhindert Edge als Loop 
+				rem.source->out_edges.push_back(edge);		// Fügt entsprechend out_edges vom target bei der source hinzu
+			}
         }
+		
         removeEdge(rem);								// Entfernt rem (hinterlässt einen nicht erreichbaren Knoten rem.target)
+
+		// Für Debugging:  std::cout << "Vor Entfernen: Anzahl der Knoten: " << numNodes() << std::endl; // Am Ende entfernen
+		// Für Debugging:  std::cout << "Zu entfernender Knoten: " << rem.target->label << std::endl; // Am Ende entfernen
+
+		for (auto it = nodes_.begin(); it != nodes_.end(); ++it) {
+			if (&(*it) == rem.target) {
+				nodes_.erase(it);
+				break; // Nur ein Knoten sollte rem.target sein, Schleife beenden
+			}
+		}
+
+		// Für Debugging:  std::cout << "Nach Entfernen: Anzahl der Knoten: " << numNodes() << std::endl; // Am Ende entfernen
+
         return rem.source;								// der übrig bleibende/neue rem wird zurück gegeben?
     }
 
